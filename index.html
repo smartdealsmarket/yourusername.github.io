@@ -1,148 +1,428 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Smart Deals Market</title>
-    <!-- Tailwind CSS CDN -->
-    <script src="https://tailwindcss.com"></script>
-    <!-- FontAwesome for Icons -->
-    <link rel="stylesheet" href="https://cloudflare.com">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#0B0D10" />
+  <meta name="description" content="Smart Deals Market — Potomac Mills Mall's premier liquidation outlet. Big brands, unbeatable prices, new truckloads weekly. Woodbridge, VA." />
+  <title>Smart Deals Market — Big Brands. Unbeatable Prices. | Potomac Mills Mall</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Outfit:wght@500;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --bg: #0b0d10; --text: #ffffff; --card: #181c24; --card-2: #12151b;
+      --primary: #ff5500; --primary-hover: #e04800; --cyan: #00e5ff; --green: #10b981;
+      --slate-300: #cbd5e1; --slate-400: #94a3b8; --slate-500: #64748b;
+      --border: rgba(255, 255, 255, 0.1); --border-soft: rgba(255, 255, 255, 0.05);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    /* Slow Motion Smooth Scrolling */
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 80px;
+    }
+
+    body { background: var(--bg); color: var(--text); font-family: "Plus Jakarta Sans", sans-serif; overflow-x: hidden; line-height: 1.5; }
+    a { text-decoration: none; color: inherit; }
+    svg { display: block; }
+    
+    /* Typography */
+    .font-display { font-family: "Outfit", sans-serif; }
+    .font-mono { font-family: "JetBrains Mono", monospace; }
+    .accent { color: var(--primary); }
+    
+    /* Layout & Containers */
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+    .section { padding: 80px 0; }
+    
+    /* Header */
+    .header { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(11, 13, 16, 0.95); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+    .header-inner { display: flex; align-items: center; justify-content: space-between; height: 72px; }
+    .brand { display: flex; align-items: center; gap: 12px; }
+    .brand-text div:first-child { font-family: "Outfit", sans-serif; font-weight: 900; font-size: 18px; line-height: 1; }
+    .brand-text div:last-child { font-family: "JetBrains Mono", monospace; font-size: 10px; letter-spacing: 0.35em; color: var(--primary); font-weight: 600; }
+    
+    .nav-desktop { display: none; gap: 32px; }
+    .nav-desktop a { font-size: 14px; font-weight: 500; color: var(--slate-300); transition: color 0.2s; }
+    .nav-desktop a:hover { color: #fff; }
+    
+    .header-cta { display: none; align-items: center; gap: 16px; }
+    .header-pill { display: flex; align-items: center; gap: 8px; border: 1px solid var(--border); background: rgba(255,255,255,0.05); padding: 6px 14px; border-radius: 99px; }
+    .dot { width: 6px; height: 6px; background: var(--primary); border-radius: 99px; }
+    .header-pill span:last-child { font-family: "JetBrains Mono", monospace; font-size: 10px; font-weight: 600; letter-spacing: 0.2em; color: var(--slate-300); }
+
+    /* Mobile Menu */
+    .mobile-menu-btn { display: block; color: #ffffff; background: none; border: none; cursor: pointer; padding: 8px; margin-right: -8px; }
+    .mobile-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg); z-index: 1000; flex-direction: column; overflow-y: auto; }
+    .mobile-overlay.active { display: flex; }
+    .mobile-overlay-header { display: flex; justify-content: space-between; align-items: center; height: 72px; border-bottom: 1px solid var(--border); width: 100%; }
+    .mobile-close-btn { color: #ffffff; background: none; border: none; cursor: pointer; padding: 8px; margin-right: -8px; }
+    .mobile-nav-links { display: flex; flex-direction: column; padding-top: 40px; padding-bottom: 40px; gap: 32px; }
+    .mobile-nav-links a { font-family: "Outfit", sans-serif; font-size: 24px; font-weight: 700; color: #fff; }
+    .mobile-nav-links .btn { font-size: 16px; padding: 16px; justify-content: center; }
+
+    /* Buttons */
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; border-radius: 99px; padding: 16px 32px; font-weight: 700; font-size: 16px; transition: all 0.3s; cursor: pointer; border: none; }
+    .btn-sm { padding: 10px 20px; font-size: 14px; }
+    .btn-primary { background: var(--primary); color: #fff; }
+    .btn-primary:hover { background: var(--primary-hover); box-shadow: 0 0 30px rgba(255, 85, 0, 0.4); }
+    .btn-secondary { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.2); color: #fff; }
+    .btn-secondary:hover { border-color: var(--cyan); background: rgba(255,255,255,0.1); }
+
+    /* Hero */
+    .hero { position: relative; padding: 180px 0 100px; overflow: hidden; }
+    .hero-bg-text { position: absolute; top: 20px; left: 50%; transform: translateX(-50%); white-space: nowrap; font-family: "Outfit", sans-serif; font-weight: 900; font-size: 22vw; color: transparent; -webkit-text-stroke: 1px rgba(255,255,255,0.08); z-index: 0; pointer-events: none; }
+    .hero-glow { position: absolute; top: 30%; left: 50%; transform: translateX(-50%); width: 800px; height: 500px; background: rgba(255,85,0,0.1); filter: blur(120px); z-index: 0; pointer-events: none; }
+    .hero-content { position: relative; z-index: 1; }
+    .hero-pill { display: inline-flex; align-items: center; gap: 10px; border: 1px solid rgba(255,85,0,0.3); background: rgba(255,85,0,0.1); padding: 8px 16px; border-radius: 99px; margin-bottom: 32px; }
+    .hero-pill span:last-child { font-family: "JetBrains Mono", monospace; font-size: 11px; font-weight: 600; letter-spacing: 0.25em; color: var(--primary); }
+    h1 { font-family: "Outfit", sans-serif; font-size: clamp(40px, 6vw, 80px); font-weight: 900; line-height: 1.05; letter-spacing: -0.02em; }
+    .hero p { margin-top: 24px; font-size: 18px; color: var(--slate-300); max-width: 600px; line-height: 1.6; }
+    .hero-actions { display: flex; flex-direction: column; gap: 16px; margin-top: 40px; }
+
+    /* Marquee */
+    .marquee { background: var(--primary); padding: 16px 0; border-top: 1px solid rgba(255,85,0,0.4); border-bottom: 1px solid rgba(255,85,0,0.4); display: flex; overflow: hidden; }
+    .marquee-content { display: flex; align-items: center; gap: 24px; padding-right: 24px; animation: scroll 20s linear infinite; white-space: nowrap; }
+    .marquee-content span { font-family: "Outfit", sans-serif; font-weight: 800; font-size: 14px; letter-spacing: 0.1em; color: var(--bg); display: flex; align-items: center; gap: 24px; }
+    @keyframes scroll { 100% { transform: translateX(-100%); } }
+
+    /* Section Headers */
+    .sec-head { margin-bottom: 48px; }
+    .eyebrow { font-family: "JetBrains Mono", monospace; font-size: 11px; font-weight: 600; letter-spacing: 0.3em; color: var(--primary); text-transform: uppercase; }
+    .eyebrow.cyan { color: var(--cyan); }
+    .sec-head h2 { font-family: "Outfit", sans-serif; font-size: 36px; font-weight: 800; margin-top: 12px; letter-spacing: -0.02em; }
+    .sec-head p { margin-top: 16px; color: var(--slate-400); max-width: 500px; }
+
+    /* Grid System */
+    .grid-3 { display: grid; grid-template-columns: 1fr; gap: 24px; }
+    
+    /* Cards */
+    .card { background: var(--card); border: 1px solid var(--border); border-radius: 24px; padding: 32px; position: relative; overflow: hidden; }
+    .card-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 24px; }
+    .card-num { font-family: "Outfit", sans-serif; font-size: 48px; font-weight: 900; color: rgba(255,255,255,0.1); line-height: 1; }
+    .badge { font-family: "JetBrains Mono", monospace; font-size: 10px; font-weight: 600; letter-spacing: 0.15em; padding: 6px 12px; border-radius: 99px; }
+    .card-icon { display: inline-flex; padding: 16px; border-radius: 16px; margin-bottom: 24px; }
+    .card h3 { font-family: "Outfit", sans-serif; font-size: 24px; font-weight: 700; }
+    .card .subtitle { font-family: "JetBrains Mono", monospace; font-size: 11px; font-weight: 600; letter-spacing: 0.15em; color: var(--slate-500); text-transform: uppercase; margin-top: 8px; }
+    .card p.desc { margin-top: 16px; color: var(--slate-400); font-size: 15px; line-height: 1.6; }
+    
+    /* Inventory Section */
+    .inventory-sec { background: var(--card-2); border-top: 1px solid var(--border-soft); border-bottom: 1px solid var(--border-soft); }
+    .inventory-head { display: flex; flex-direction: column; gap: 24px; margin-bottom: 48px; }
+    .inv-card { background: var(--bg); border: 1px solid var(--border); border-radius: 24px; padding: 32px; display: flex; flex-direction: column; position: relative; overflow: hidden; }
+    .inv-card-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
+    .inv-discount { font-family: "JetBrains Mono", monospace; font-size: 10px; font-weight: 600; letter-spacing: 0.15em; color: var(--slate-500); }
+    .inv-list { list-style: none; margin: 24px 0; display: flex; flex-direction: column; gap: 12px; }
+    .inv-list li { display: flex; align-items: center; gap: 12px; font-size: 14px; color: var(--slate-300); }
+    .bullet { width: 6px; height: 6px; border-radius: 99px; flex-shrink: 0; }
+    .inv-link { margin-top: auto; font-weight: 700; font-size: 14px; display: inline-flex; align-items: center; gap: 8px; }
+    
+    /* Location & Footer */
+    .location-sec { background: var(--bg); border-top: 1px solid var(--border); padding: 80px 0 32px; }
+    .location-grid { display: grid; gap: 24px; grid-template-columns: 1fr; }
+    .map-box { height: 320px; border-radius: 24px; border: 1px solid var(--border); overflow: hidden; }
+    .map-box iframe { width: 100%; height: 100%; border: none; filter: grayscale(0.3) contrast(1.1); }
+    .loc-cards { display: flex; flex-direction: column; gap: 24px; }
+    .loc-card { background: var(--card); border: 1px solid var(--border); border-radius: 24px; padding: 32px; }
+    .loc-head { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
+    .loc-head h3 { font-family: "Outfit", sans-serif; font-size: 18px; font-weight: 700; }
+    .loc-card p { color: var(--slate-300); font-size: 15px; line-height: 1.6; margin-bottom: 24px; }
+    .loc-card .btn { width: 100%; margin-bottom: 12px; }
+    .hours-row { display: flex; justify-content: space-between; border-bottom: 1px solid var(--border-soft); padding-bottom: 12px; margin-bottom: 12px; font-size: 14px; }
+    .hours-row span:last-child { font-family: "JetBrains Mono", monospace; font-weight: 600; }
+    .footer-bot { display: flex; flex-direction: column; align-items: center; gap: 24px; border-top: 1px solid var(--border); margin-top: 64px; padding-top: 32px; text-align: center; }
+    
+    /* Media Queries (Desktop) */
+    @media (min-width: 768px) {
+      .grid-3 { grid-template-columns: repeat(3, 1fr); }
+      .inventory-head { flex-direction: row; justify-content: space-between; align-items: flex-end; }
+      .hero-actions { flex-direction: row; }
+      .footer-bot { flex-direction: row; justify-content: space-between; text-align: left; }
+    }
+    
+    @media (min-width: 1024px) {
+      .nav-desktop { display: flex; }
+      .header-cta { display: flex; }
+      .mobile-menu-btn { display: none; }
+      .mobile-overlay { display: none !important; }
+      .location-grid { grid-template-columns: 1.5fr 1fr; }
+      .loc-cards { display: flex; flex-direction: column; justify-content: space-between; }
+    }
+  </style>
 </head>
-<body class="bg-gray-50 text-gray-800 font-sans">
+<body>
 
-    <!-- Navigation Bar -->
-    <nav class="bg-white shadow-sm sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-16">
-                <div class="flex items-center gap-2">
-                    <i class="fa-solid fa-bolt text-amber-500 text-2xl"></i>
-                    <span class="text-xl font-bold tracking-tight text-gray-900">SmartDeals<span class="text-amber-500">Market</span></span>
-                </div>
-                <div class="flex items-center space-x-4">
-                    <div class="relative hidden md:block">
-                        <input type="text" placeholder="Search deals..." class="w-64 pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent text-sm">
-                        <i class="fa-solid fa-magnifying-glass absolute left-3 top-3 text-gray-400 text-sm"></i>
-                    </div>
-                    <button class="relative p-2 text-gray-600 hover:text-amber-500 transition">
-                        <i class="fa-solid fa-cart-shopping text-xl"></i>
-                        <span class="absolute top-0 right-0 bg-red-500 text-white text-xs w-4 h-4 rounded-full flex items-center justify-center">3</span>
-                    </button>
-                    <button class="p-2 text-gray-600 hover:text-amber-500 transition">
-                        <i class="fa-solid fa-circle-user text-xl"></i>
-                    </button>
-                </div>
-            </div>
+  <!-- HEADER -->
+  <header class="header">
+    <div class="container header-inner">
+      <a href="#" class="brand">
+        <svg width="38" height="38" viewBox="0 0 48 48" fill="none">
+          <rect x="2" y="2" width="44" height="44" rx="10" fill="#FF5500" />
+          <path d="M13 31.5L24 10L35 31.5" stroke="#0B0D10" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+          <path d="M28 36L33.5 27.5L39 36" stroke="#0B0D10" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+        </svg>
+        <div class="brand-text">
+          <div>SMART DEALS</div>
+          <div>MARKET</div>
         </div>
-    </nav>
+      </a>
+      
+      <!-- Desktop Nav -->
+      <nav class="nav-desktop">
+        <a href="#rules">Store Rules</a>
+        <a href="#inventory">Inventory</a>
+        <a href="#location">Find Us</a>
+        <a href="#location">Hours</a>
+      </nav>
+      
+      <div class="header-cta">
+        <div class="header-pill">
+          <div class="dot"></div>
+          <span>NEW DROP TODAY</span>
+        </div>
+        <a href="#location" class="btn btn-primary btn-sm">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg>
+          Get Directions
+        </a>
+      </div>
 
-    <!-- Main Content Wrapper -->
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <!-- Hamburger Button (White) -->
+      <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Open menu">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 12h16"/><path d="M4 18h16"/><path d="M4 6h16"/>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- FULL SCREEN MOBILE MENU -->
+  <div class="mobile-overlay" id="mobile-menu">
+    <div class="container mobile-overlay-header">
+      <a href="#" class="brand">
+        <svg width="38" height="38" viewBox="0 0 48 48" fill="none">
+          <rect x="2" y="2" width="44" height="44" rx="10" fill="#FF5500" />
+          <path d="M13 31.5L24 10L35 31.5" stroke="#0B0D10" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+          <path d="M28 36L33.5 27.5L39 36" stroke="#0B0D10" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+        </svg>
+        <div class="brand-text">
+          <div>SMART DEALS</div>
+          <div>MARKET</div>
+        </div>
+      </a>
+      <button class="mobile-close-btn" id="mobile-close-btn" aria-label="Close menu">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+      </button>
+    </div>
+    
+    <div class="container mobile-nav-links">
+      <a href="#rules">Store Rules</a>
+      <a href="#inventory">Inventory</a>
+      <a href="#location">Find Us</a>
+      <a href="#location">Hours</a>
+      <a href="#location" class="btn btn-primary" style="margin-top: 24px;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg>
+        Get Directions
+      </a>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg-text">DEALS</div>
+    <div class="hero-glow"></div>
+    <div class="container hero-content">
+      <div class="hero-pill">
+        <div class="dot"></div>
+        <span>POTOMAC MILLS MALL · WOODBRIDGE, VA</span>
+      </div>
+      <h1>
+        Big Brands.<br>
+        <span class="accent">Unbeatable Prices.</span><br>
+        Right Around The Corner.
+      </h1>
+      <p>Potomac Mills' premier liquidation outlet for home essentials, furniture, luggage, and daily surprises. New truckloads arrive weekly — when it's gone, it's gone.</p>
+      <div class="hero-actions">
+        <a href="#location" class="btn btn-primary">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg>
+          Find Us Inside the Mall
+        </a>
+        <a href="https://www.instagram.com/smartdealsmarket_" target="_blank" class="btn btn-secondary">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00E5FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+          See This Week's Arrivals
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- MARQUEE -->
+  <div class="marquee">
+    <div class="marquee-content">
+      <span>WEEKLY TRUCKLOADS <svg width="12" height="12" viewBox="0 0 14 14"><path d="M7 0L8.5 5.5L14 7L8.5 8.5L7 14L5.5 8.5L0 7L5.5 5.5L7 0Z" fill="#0B0D10" /></svg></span>
+      <span>UP TO 70% OFF MSRP <svg width="12" height="12" viewBox="0 0 14 14"><path d="M7 0L8.5 5.5L14 7L8.5 8.5L7 14L5.5 8.5L0 7L5.5 5.5L7 0Z" fill="#0B0D10" /></svg></span>
+      <span>POTOMAC MILLS MALL <svg width="12" height="12" viewBox="0 0 14 14"><path d="M7 0L8.5 5.5L14 7L8.5 8.5L7 14L5.5 8.5L0 7L5.5 5.5L7 0Z" fill="#0B0D10" /></svg></span>
+      <span>ALL SALES FINAL <svg width="12" height="12" viewBox="0 0 14 14"><path d="M7 0L8.5 5.5L14 7L8.5 8.5L7 14L5.5 8.5L0 7L5.5 5.5L7 0Z" fill="#0B0D10" /></svg></span>
+    </div>
+    <div class="marquee-content">
+      <span>WEEKLY TRUCKLOADS <svg width="12" height="12" viewBox="0 0 14 14"><path d="M7 0L8.5 5.5L14 7L8.5 8.5L7 14L5.5 8.5L0 7L5.5 5.5L7 0Z" fill="#0B0D10" /></svg></span>
+      <span>UP TO 70% OFF MSRP <svg width="12" height="12" viewBox="0 0 14 14"><path d="M7 0L8.5 5.5L14 7L8.5 8.5L7 14L5.5 8.5L0 7L5.5 5.5L7 0Z" fill="#0B0D10" /></svg></span>
+      <span>POTOMAC MILLS MALL <svg width="12" height="12" viewBox="0 0 14 14"><path d="M7 0L8.5 5.5L14 7L8.5 8.5L7 14L5.5 8.5L0 7L5.5 5.5L7 0Z" fill="#0B0D10" /></svg></span>
+      <span>ALL SALES FINAL <svg width="12" height="12" viewBox="0 0 14 14"><path d="M7 0L8.5 5.5L14 7L8.5 8.5L7 14L5.5 8.5L0 7L5.5 5.5L7 0Z" fill="#0B0D10" /></svg></span>
+    </div>
+  </div>
+
+  <!-- RULES -->
+  <section id="rules" class="section">
+    <div class="container">
+      <div class="sec-head">
+        <div class="eyebrow">HOW WE WORK</div>
+        <h2>The rules of the hunt.</h2>
+        <p>Three simple rules keep our prices this low — and the thrill this high.</p>
+      </div>
+      <div class="grid-3">
+        <div class="card">
+          <div class="card-top">
+            <div class="card-num">01</div>
+            <div class="badge" style="color: #FF5500; background: rgba(255,85,0,0.1); border: 1px solid rgba(255,85,0,0.3);">FRESH ARRIVALS</div>
+          </div>
+          <div class="card-icon" style="background: rgba(255,85,0,0.1);">
+             <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#FF5500" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2"/><path d="M15 18H9"/><path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.624l-3.48-4.35A1 1 0 0 0 17.52 8H14"/><circle cx="17" cy="18" r="2"/><circle cx="7" cy="18" r="2"/></svg>
+          </div>
+          <h3>Weekly Truckloads</h3>
+          <div class="subtitle">Fresh Inventory Drops</div>
+          <p class="desc">Fresh closeout inventory and top-tier liquidations arriving constantly. What you see today might be gone tomorrow — because next week's truck is already on the road.</p>
+        </div>
+        <div class="card">
+          <div class="card-top">
+            <div class="card-num">02</div>
+            <div class="badge" style="color: #00E5FF; background: rgba(0,229,255,0.1); border: 1px solid rgba(0,229,255,0.3);">NEW DROP</div>
+            <div class="inv-discount">SAVE 50–75% MSRP</div>
+          </div>
+          <div class="card-icon" style="background: rgba(0,229,255,0.1); width: max-content;">
+             <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#00E5FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12h20"/><path d="M20 12v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8"/><path d="m4 8 16-4"/><path d="m8.86 6.78-.45-1.81a2 2 0 0 1 1.45-2.43l1.94-.48a2 2 0 0 1 2.43 1.46l.45 1.8"/></svg>
+          </div>
+          <h3>Kitchen & Hosting</h3>
+          <div class="subtitle" style="margin-bottom: 16px;">Chef-grade cookware & entertaining essentials</div>
+          <ul class="inv-list">
+            <li><div class="bullet" style="background:#00E5FF;"></div>Serving platters & hosting trays</li>
+            <li><div class="bullet" style="background:#00E5FF;"></div>Premium cookware sets</li>
+            <li><div class="bullet" style="background:#00E5FF;"></div>Stoneware & glassware</li>
+            <li><div class="bullet" style="background:#00E5FF;"></div>Everyday home essentials</li>
+          </ul>
+          <a href="https://www.instagram.com/smartdealsmarket_" target="_blank" class="inv-link" style="color: #00E5FF;">See what's in stock <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></a>
+        </div>
+
+        <div class="inv-card">
+          <div class="inv-card-top">
+            <div class="badge" style="color: #10B981; background: rgba(16,185,129,0.1); border: 1px solid rgba(16,185,129,0.3);">LIMITED STOCK</div>
+            <div class="inv-discount">SAVE 45–70% MSRP</div>
+          </div>
+          <div class="card-icon" style="background: rgba(16,185,129,0.1); width: max-content;">
+             <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 20a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2"/><path d="M8 18V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v14"/><path d="M10 20h4"/><circle cx="16" cy="20" r="2"/><circle cx="8" cy="20" r="2"/></svg>
+          </div>
+          <h3>Travel & Luggage</h3>
+          <div class="subtitle" style="margin-bottom: 16px;">First-class travel gear without the luxury markup</div>
+          <ul class="inv-list">
+            <li><div class="bullet" style="background:#10B981;"></div>Multi-size luggage sets</li>
+            <li><div class="bullet" style="background:#10B981;"></div>Durable carry-ons</li>
+            <li><div class="bullet" style="background:#10B981;"></div>Weekender travel bags</li>
+            <li><div class="bullet" style="background:#10B981;"></div>Travel accessories & organizers</li>
+          </ul>
+          <a href="https://www.instagram.com/smartdealsmarket_" target="_blank" class="inv-link" style="color: #10B981;">See what's in stock <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LOCATION -->
+  <footer id="location" class="location-sec">
+    <div class="container">
+      <div class="sec-head">
+        <div class="eyebrow">FIND THE TREASURE</div>
+        <h2>Inside Potomac Mills Mall.</h2>
+      </div>
+      
+      <div class="location-grid">
+        <!-- Map -->
+        <div class="map-box">
+          <iframe src="https://www.google.com/maps?q=2700+Potomac+Mills+Circle,+Woodbridge,+VA+22192&output=embed" loading="lazy"></iframe>
+        </div>
         
-        <!-- Hero Section / Flash Announcement -->
-        <div class="bg-gradient-to-r align-middle from-amber-500 to-orange-600 rounded-2xl p-6 md:p-10 text-white shadow-lg mb-8 relative overflow-hidden">
-            <div class="relative z-10 max-w-md">
-                <span class="bg-white/20 text-xs font-semibold px-2.5 py-1 rounded-full uppercase tracking-wider">Limited Time Only</span>
-                <h1 class="text-3xl md:text-4xl font-extrabold mt-4 mb-2">Mega Flash Deals up to 70% Off!</h1>
-                <p class="text-amber-100 text-sm md:text-base mb-6">Smart algorithms sourcing the absolute lowest prices on trending tech and essentials.</p>
-                <div class="flex items-center gap-2 text-sm bg-black/10 w-fit px-4 py-2 rounded-lg font-mono">
-                    <span>Ends In:</span>
-                    <span id="countdown" class="font-bold text-amber-300">04h 12m 45s</span>
-                </div>
+        <!-- Info -->
+        <div class="loc-cards">
+          <div class="loc-card">
+            <div class="loc-head">
+              <div class="card-icon" style="background: rgba(255,85,0,0.1); margin: 0; padding: 10px;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FF5500" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg>
+              </div>
+              <h3>Where to find us</h3>
             </div>
-            <i class="fa-solid fa-tags absolute right-[-20px] bottom-[-20px] text-white/10 text-[12rem] pointer-events-none rotate-12"></i>
+            <p>Find us inside <strong style="color: #fff;">Potomac Mills Mall</strong> — 2700 Potomac Mills Circle, Woodbridge, VA 22192 — <span style="color: #FF5500; font-weight: 600;">directly across from T.J. Maxx</span>.</p>
+            <a href="https://www.google.com/maps/search/?api=1&query=2700+Potomac+Mills+Circle+Woodbridge+VA+22192" target="_blank" class="btn btn-primary btn-sm">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg> Get Directions
+            </a>
+            <a href="tel:+15712924247" class="btn btn-secondary btn-sm">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#00E5FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384"/></svg> Call (571) 292-4247
+            </a>
+          </div>
+          
+          <div class="loc-card">
+            <div class="loc-head">
+              <div class="card-icon" style="background: rgba(0,229,255,0.1); margin: 0; padding: 10px;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00E5FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              </div>
+              <h3>Operating hours</h3>
+            </div>
+            <div class="hours-row"><span>Monday – Saturday</span><span>10:00 AM – 9:00 PM</span></div>
+            <div class="hours-row"><span>Sunday</span><span>11:00 AM – 6:00 PM</span></div>
+            <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.2em; color: var(--slate-500); text-transform: uppercase; margin-top: 16px;">Standard Potomac Mills Mall hours</div>
+          </div>
         </div>
+      </div>
+      
+      <div class="footer-bot">
+        <div class="brand">
+          <svg width="30" height="30" viewBox="0 0 48 48" fill="none"><rect x="2" y="2" width="44" height="44" rx="10" fill="#FF5500" /><path d="M13 31.5L24 10L35 31.5" stroke="#0B0D10" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round" fill="none" /><path d="M28 36L33.5 27.5L39 36" stroke="#0B0D10" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" fill="none" /></svg>
+          <div class="brand-text"><div>SMART DEALS <span class="accent">MARKET</span></div></div>
+        </div>
+        <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.2em; color: var(--slate-500);">© 2024 SMART DEALS MARKET</div>
+        <div style="display: flex; gap: 24px; font-weight: 600; font-size: 14px;">
+          <a href="tel:+15712924247" style="color: var(--slate-300); display: flex; align-items: center; gap: 8px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384"/></svg> (571) 292-4247</a>
+          <a href="https://www.instagram.com/smartdealsmarket_" target="_blank" style="color: var(--slate-300); display: flex; align-items: center; gap: 8px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg> @smartdealsmarket_</a>
+        </div>
+      </div>
+    </div>
+  </footer>
 
-        <div class="flex flex-col lg:flex-row gap-8">
-            <!-- Sidebar Filters -->
-            <aside class="w-full lg:w-64 shrink-0">
-                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 sticky top-24">
-                    <h3 class="font-bold text-gray-900 mb-4 flex items-center gap-2">
-                        <i class="fa-solid fa-sliders text-amber-500"></i> Filter Deals
-                    </h3>
-                    
-                    <!-- Categories -->
-                    <div class="mb-6">
-                        <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Category</label>
-                        <div class="space-y-2">
-                            <label class="flex items-center text-sm font-medium text-gray-700 cursor-pointer">
-                                <input type="checkbox" checked class="rounded border-gray-300 text-amber-500 focus:ring-amber-500 mr-2"> All Products
-                            </label>
-                            <label class="flex items-center text-sm font-medium text-gray-600 hover:text-gray-900 cursor-pointer">
-                                <input type="checkbox" class="rounded border-gray-300 text-amber-500 focus:ring-amber-500 mr-2"> Electronics
-                            </label>
-                            <label class="flex items-center text-sm font-medium text-gray-600 hover:text-gray-900 cursor-pointer">
-                                <input type="checkbox" class="rounded border-gray-300 text-amber-500 focus:ring-amber-500 mr-2"> Home & Kitchen
-                            </label>
-                            <label class="flex items-center text-sm font-medium text-gray-600 hover:text-gray-900 cursor-pointer">
-                                <input type="checkbox" class="rounded border-gray-300 text-amber-500 focus:ring-amber-500 mr-2"> Apparel
-                            </label>
-                        </div>
-                    </div>
+  <script>
+    // Mobile Menu Logic
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileCloseBtn = document.getElementById('mobile-close-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const mobileLinks = document.querySelectorAll('.mobile-nav-links a');
 
-                    <!-- Discount Range -->
-                    <div class="mb-6">
-                        <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Min Discount</label>
-                        <select class="w-full border border-gray-300 rounded-lg p-2 text-sm focus:ring-2 focus:ring-amber-500 focus:border-transparent">
-                            <option>10% Off & More</option>
-                            <option>30% Off & More</option>
-                            <option>50% Off & More</option>
-                        </select>
-                    </div>
+    if (mobileMenuBtn) {
+      mobileMenuBtn.addEventListener('click', () => {
+        mobileMenu.classList.add('active');
+      });
+    }
 
-                    <button class="w-full bg-gray-900 text-white text-sm font-semibold py-2.5 rounded-lg hover:bg-gray-800 transition">
-                        Apply Filters
-                    </button>
-                </div>
-            </aside>
+    if (mobileCloseBtn) {
+      mobileCloseBtn.addEventListener('click', () => {
+        mobileMenu.classList.remove('active');
+      });
+    }
 
-            <!-- Product Grid Container -->
-            <section class="flex-1">
-                <!-- Sorting Bar -->
-                <div class="flex justify-between items-center mb-6">
-                    <p class="text-sm text-gray-500"><span class="font-semibold text-gray-900">24</span> active deals found</p>
-                    <select class="border border-gray-300 rounded-lg p-2 text-sm bg-white text-gray-700">
-                        <option>Sort by: Hot Deals</option>
-                        <option>Price: Low to High</option>
-                        <option>Price: High to Low</option>
-                        <option>Highest Discount</option>
-                    </select>
-                </div>
-
-                <!-- Card Grid -->
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                    
-                    <!-- Product Card 1 -->
-                    <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition group">
-                        <div class="relative bg-gray-100 aspect-square flex items-center justify-center p-4">
-                            <span class="absolute top-3 left-3 bg-red-500 text-white font-bold text-xs px-2.5 py-1 rounded-md z-10">-40%</span>
-                            <button class="absolute top-3 right-3 w-8 h-8 bg-white/80 rounded-full flex items-center justify-center text-gray-400 hover:text-red-500 hover:bg-white shadow-sm transition z-10">
-                                <i class="fa-regular fa-heart"></i>
-                            </button>
-                            <!-- Simulated Placeholder Image Icon -->
-                            <i class="fa-solid fa-laptop text-6xl text-gray-300 group-hover:scale-105 transition-transform duration-300"></i>
-                        </div>
-                        <div class="p-5">
-                            <span class="text-xs font-semibold uppercase tracking-wider text-amber-600">Electronics</span>
-                            <h4 class="font-bold text-gray-900 mt-1 mb-2 line-clamp-1">Smart Pro Wireless Laptop 14"</h4>
-                            <div class="flex items-baseline gap-2 mb-4">
-                                <span class="text-xl font-extrabold text-gray-900">$599.00</span>
-                                <span class="text-sm text-gray-400 line-through">$999.00</span>
-                            </div>
-                            <button class="w-full bg-amber-500 hover:bg-amber-600 text-white font-semibold py-2.5 px-4 rounded-lg flex items-center justify-center gap-2 transition text-sm">
-                                <i class="fa-solid fa-cart-plus"></i> Claim Deal
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- Product Card 2 -->
-                    <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition group">
-                        <div class="relative bg-gray-100 aspect-square flex items-center justify-center p-4">
-                            <span class="absolute top-3 left-3 bg-red-500 text-white font-bold text-xs px-2.5 py-1 rounded-md z-10">-60%</span>
-                            <button class="absolute top-3 right-3 w-8 h-8 bg-white/80 rounded-full flex items-center justify-center text-gray-400 hover:text-red-500 hover:bg-white shadow-sm transition z-10">
-                                <i class="fa-regular fa-heart"></i>
-                            </button>
-                            <i class="fa-solid fa-headphones text-6xl text-gray-300 group-hover:scale-105 transition-transform duration-300"></i>
-                        </div>
-                        <div class="p-5">
-                          
+    if (mobileLinks) {
+      mobileLinks.forEach(link => {
+        link.addEventListener('click', () => {
+          mobileMenu.classList.remove('active');
+        });
+      });
+    }
+  </script>
+</body>
+</html>
